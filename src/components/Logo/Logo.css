@@ -1,0 +1,13 @@
+.Tilt {
+    position: absolute;
+    top: 4vh;
+    left: 4vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+img {
+    width: 50%;
+    height: auto;
+}
