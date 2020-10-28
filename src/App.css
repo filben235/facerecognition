@@ -1,8 +1,8 @@
-.App {
+/* .App {
   text-align: center;
 }
 
-/*own style that allows horizntal centering*/
+
 .center {
   display: flex;
   justify-content: center;
@@ -15,4 +15,4 @@
   bottom: 0;
   left: 0;
   z-index: -1;
-}
+} */

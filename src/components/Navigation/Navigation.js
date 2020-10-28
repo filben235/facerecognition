@@ -4,7 +4,7 @@ import './Navigation.css';
 const Navigation = () => {
     return (
         <nav>
-            <p className ='f5 link dim pointer white-20'>Sign Out</p>
+            <p id='signout-button' className ='f5 link dim pointer'>Sign Out</p>
         </nav>
     );
 }
