@@ -12,8 +12,8 @@ export const darkTheme = {
 export const lightTheme = {
   accentColor: '#ba1efc',
   text: '	#696969',
-  textMuted: '#C0C0C0',
+  textMuted: '#636363',
   particlesColor: '#3b3b3b',
   linesColor: '#404040',
-  gradient: 'linear-gradient(to right, rgb(250, 250, 250), rgb(232, 232, 232))',
+  gradient: 'linear-gradient(to right, rgb(214, 214, 214), rgb(222, 222, 222))',
 }

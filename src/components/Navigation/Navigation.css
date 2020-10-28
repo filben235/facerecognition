@@ -1,9 +1,7 @@
 nav {
     display: flex;
+    gap: 1vw;
     justify-content: flex-end;
-    height: 20vh;
+    padding: 1vh 1.5vw 8vh 0;
 }
 
-p.link {
-    padding-right: 1.5vw;
-}

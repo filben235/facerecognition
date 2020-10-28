@@ -1,4 +1,4 @@
-//sets global css variables
+//sets global css variables, variables for dark/light theme is located in theme.js
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
@@ -23,7 +23,6 @@ export const GlobalStyles = createGlobalStyle`
     text-align: center;
   }
   
-  /*own style that allows horizntal centering*/
   .center {
     display: flex;
     justify-content: center;
@@ -49,8 +48,8 @@ export const GlobalStyles = createGlobalStyle`
     color: ${({ theme }) => theme.textNormal};
   }
 
-  //sets color of the signout button
-  #signout-button {
+  //sets color of the signout and switch theme buttons
+  #signout-button, #switch-button {
     color: ${({ theme }) => theme.textMuted};
   }
 `;

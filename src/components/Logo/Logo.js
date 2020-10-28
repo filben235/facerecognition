@@ -15,7 +15,9 @@ const Logo = () => {
                     height: 90, 
                     width: 90
                 }} >
-                <div className="Tilt-inner"> <img src={brainlogo} alt='our logo'/></div>
+                <div className="Tilt-inner"> 
+                    <img src={brainlogo} alt='our logo'/>
+                </div>
             </Tilt>
         </div>
     );
