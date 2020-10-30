@@ -10,7 +10,8 @@ import Navigation from './components/Navigation/Navigation.js';
 import Logo from './components/Logo/Logo.js';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm.js';
 import Rank from './components/Rank/Rank.js';
-import FaceRecognition from './components/FaceRecognition/FaceRecognition.js'
+import FaceRecognition from './components/FaceRecognition/FaceRecognition.js';
+import Signin from './components/Signin/Signin.js';
 
 
 const app = new Clarifai.App({
@@ -36,6 +37,7 @@ const particleOptions = {
   }
 }
 
+
 class App extends Component {
   constructor() {
     super();
@@ -43,6 +45,8 @@ class App extends Component {
       input: '',
       imageURL: '',
       theme: 'light',
+      facePercent: '',
+      route: 'signin',
     }
   }
 
@@ -64,17 +68,31 @@ class App extends Component {
     this.setState({input: event.target.value});
   }
 
+  //same as vanilla toFixed, just without the rounding
+  toFixedImproved(num, fixed) {
+    var re = new RegExp('^-?\\d+(?:\\.\\d{0,' + (fixed || -1) + '})?');
+    return num.toString().match(re)[0];
+  }
+
+  handlePercent = (response) => {
+    //converts to percent with 3 decimals + adds %
+    let fixedResponse = `The chance is ${((this.toFixedImproved(response, 5))*100).toString()}% that this is a human face`;
+    this.setState({facePercent: fixedResponse});
+  }
+
+
   //gets called when the submit button is clicked
   onButtonSubmit = () => {
     this.setState({imageURL: this.state.input });
     app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
-    .then(function(response) {
-      console.log(response.outputs[0].data.regions[0].data.concepts[0].value,
-        response.outputs[0].data.regions[0].region_info.bounding_box);
-    })
+    .then(response => this.handlePercent(response.outputs[0].data.regions[0].data.concepts[0].value))
     .catch(function(error){
       console.log(error);
     })
+  }
+
+  onRouteChange = () => {
+    this.setState({route: 'home'});
   }
 
 render(){  
@@ -88,12 +106,20 @@ render(){
         />
         <Navigation toggleTheme={this.toggleTheme}/>
         <Logo/>
-        <Rank/>
-        <ImageLinkForm 
-          onInputChange={this.onInputChange} 
-          onButtonSubmit={this.onButtonSubmit}
-        />
-        <FaceRecognition imageURL={this.state.imageURL}/>
+        { this.state.route === 'signin'
+          ? <Signin onRouteChange={this.onRouteChange}/>
+          : <div>
+            <Rank/>
+            <ImageLinkForm 
+              onInputChange={this.onInputChange} 
+              onButtonSubmit={this.onButtonSubmit}
+            />
+            <FaceRecognition 
+              imageURL={this.state.imageURL}
+              facePercent={this.state.facePercent}
+            />
+          </div>
+        }
       </ThemeProvider>
     </div>
   );
