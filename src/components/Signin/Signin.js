@@ -17,11 +17,11 @@ const Signin = ({onRouteChange}) => {
         <div id='sign-in-up'>
           <input 
             type='submit' 
-            onClick={onRouteChange} 
+            onClick={ () => onRouteChange('home')}
             value='Sign in' 
             className='pointer br2'
           />
-          <a href='#' className='link black'>Sign up</a> 
+          <p onClick={ () => onRouteChange('register')} className='pointer black'>Create account</p> 
         </div>
       </form>
     </div>

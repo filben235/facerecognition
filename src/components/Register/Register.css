@@ -1,0 +1,30 @@
+#sign-in-form {
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5vh;
+  background-color: rgba(255,255,255,0.4 );
+}
+
+#sign-in-form p {
+  margin: 2vh 0 0 0;
+}
+
+#email-box,
+#password-box,
+#name-box {
+  width: 50%;
+}
+
+#email-input1, 
+#password-input1{
+  width: 100%;
+}
+
+#sign-in-up {
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+  margin: 2vh 0 2vh 0;
+}

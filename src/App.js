@@ -12,6 +12,7 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm.js';
 import Rank from './components/Rank/Rank.js';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition.js';
 import Signin from './components/Signin/Signin.js';
+import Register from './components/Register/Register.js';
 
 
 const app = new Clarifai.App({
@@ -47,6 +48,7 @@ class App extends Component {
       theme: 'light',
       facePercent: '',
       route: 'signin',
+      isSignedIn: false,
     }
   }
 
@@ -91,8 +93,16 @@ class App extends Component {
     })
   }
 
-  onRouteChange = () => {
-    this.setState({route: 'home'});
+  //keeps track of what parts of the page to display
+  onRouteChange = (data) => {
+    //will only be true at the start and after pressing sign out button
+    if (data === 'signin') {
+      this.setState({isSignedIn: false})
+      //will be true if the home screen is open (after clicking signin/register)
+    } else if (data === 'home') {
+      this.setState({isSignedIn: true})
+    }
+    this.setState({route: data});
   }
 
 render(){  
@@ -104,21 +114,29 @@ render(){
         <Particles className='particles'
           params={particleOptions}
         />
-        <Navigation toggleTheme={this.toggleTheme}/>
+        <Navigation 
+          isSignedIn={this.state.isSignedIn}
+          toggleTheme={this.toggleTheme}
+          onRouteChange={this.onRouteChange}
+        />
         <Logo/>
-        { this.state.route === 'signin'
-          ? <Signin onRouteChange={this.onRouteChange}/>
-          : <div>
-            <Rank/>
-            <ImageLinkForm 
-              onInputChange={this.onInputChange} 
-              onButtonSubmit={this.onButtonSubmit}
-            />
-            <FaceRecognition 
-              imageURL={this.state.imageURL}
-              facePercent={this.state.facePercent}
-            />
-          </div>
+        { this.state.route === 'home'
+          ? <div>
+              <Rank/>
+              <ImageLinkForm 
+                onInputChange={this.onInputChange} 
+                onButtonSubmit={this.onButtonSubmit}
+              />
+              <FaceRecognition 
+                imageURL={this.state.imageURL}
+                facePercent={this.state.facePercent}
+              />
+            </div>
+          : (
+              this.state.route ==='signin' 
+              ? <Signin onRouteChange={this.onRouteChange}/>
+              : <Register onRouteChange={this.onRouteChange}/>
+            ) 
         }
       </ThemeProvider>
     </div>
